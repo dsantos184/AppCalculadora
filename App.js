@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 48,
     textAlign: 'right',
+
+
+    
   },
 
 });
