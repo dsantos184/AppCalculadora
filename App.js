@@ -15,6 +15,28 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
+      valor: '0',
+    }
+
+    this.calcular = this.calcular.bind(this);
+  }
+
+  calcular(valor)
+  {
+    if( valor == 'C')
+    {
+      this.setState({valor:0});
+    }
+    else
+    {
+      const operadores = ['/', '*', '-', '.', '=', '.'];
+      
+      resultado = this.state.valor;
+
+      if( (operadores.indexOf(valor) != -1 && valor != resultado.substring(resultado.length -1)) || operadores.indexOf(valor) == -1 || (operadores.indexOf(valor) != -1 && operadores.indexOf(resultado.substring(resultado.length -1) == -1)) )
+      {
+        this.setState({valor:this.state.valor + valor})    
+      }      
     }
   }
 
@@ -22,14 +44,33 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.containerResultado}>
-          <Text style={styles.textResult}>0</Text>
+          <Text style={styles.textResult}>{this.state.valor}</Text>          
         </View>
         
-        <Botao objBotao={[{texto:'C', flex:3, bgColor:'#BDBDBD'},{texto:'/', bgColor: '#FE9A2E'}]} />
-        <Botao objBotao={[{texto:'7'},{texto:'8'}, {texto:'9'}, {texto:'*', bgColor: '#FE9A2E'}]} />
-        <Botao objBotao={[{texto:'4'},{texto:'5'}, {texto:'6'}, {texto:'-', bgColor: '#FE9A2E'}]} />
-        <Botao objBotao={[{texto:'1'},{texto:'2'}, {texto:'3'}, {texto:'+', bgColor: '#FE9A2E'}]} />
-        <Botao objBotao={[{texto:'0', flex:'2'},{texto:'.'}, {texto:'=', bgColor: '#FE9A2E'}]} />          
+        <Botao 
+          objBotao={[{texto:'C', flex:3, bgColor:'#BDBDBD'},{texto:'/', bgColor: '#FE9A2E'}]}
+          retornaValor = {valor => this.calcular(valor)}
+        />
+
+        <Botao 
+          objBotao={[{texto:'7'},{texto:'8'}, {texto:'9'}, {texto:'*', bgColor: '#FE9A2E'}]}
+          retornaValor = {valor => this.calcular(valor)}
+        />
+
+        <Botao 
+          objBotao={[{texto:'4'},{texto:'5'}, {texto:'6'}, {texto:'-', bgColor: '#FE9A2E'}]}
+          retornaValor = {valor => this.calcular(valor)}
+        />
+
+        <Botao 
+          objBotao={[{texto:'1'},{texto:'2'}, {texto:'3'}, {texto:'+', bgColor: '#FE9A2E'}]}
+          retornaValor = {valor => this.calcular(valor)}
+        />
+
+        <Botao 
+          objBotao={[{texto:'0', flex:'2'},{texto:'.'}, {texto:'=', bgColor: '#FE9A2E'}]}
+          retornaValor = {valor => this.calcular(valor)}
+        />
         
       </View>
     );
@@ -56,9 +97,6 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 48,
     textAlign: 'right',
-
-
-    
   },
 
 });

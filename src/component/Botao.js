@@ -13,8 +13,6 @@ export default class Botao extends Component
     {
         super(props);
 
-        this.state = {};
-
         this.styles = StyleSheet.create({
             botao:
             {
@@ -24,10 +22,21 @@ export default class Botao extends Component
                 borderColor: '#E6E6E6',
             }
         })
+
+        /*this.state = {
+            resultado : ''
+        }*/
+
+        this.retornaValor = this.retornaValor.bind(this);
+    }
+
+    retornaValor(valor)
+    {               
+        return(this.props.retornaValor(valor));
     }
 
     render()
-    {
+    {        
         const sasa = this.props.objBotao.map((obj, index)=>{
 
             let flex = 1;
@@ -44,7 +53,11 @@ export default class Botao extends Component
             }
 
             return(
-                <TouchableOpacity key={index} style={[this.styles.botao, {flex, backgroundColor:bgColor}]}>
+                <TouchableOpacity 
+                    key={index} 
+                    style={[this.styles.botao, {flex, backgroundColor:bgColor}]}
+                    onPress={()=>{this.retornaValor(obj.texto)}}
+                >
                     <Text style={styles.textoBotao}>{obj.texto}</Text>
                 </TouchableOpacity>  
             );
