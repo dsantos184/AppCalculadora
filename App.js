@@ -29,14 +29,35 @@ export default class App extends React.Component {
     }
     else
     {
-      const operadores = ['/', '*', '-', '.', '=', '.'];
-      
-      resultado = this.state.valor;
 
-      if( (operadores.indexOf(valor) != -1 && valor != resultado.substring(resultado.length -1)) || operadores.indexOf(valor) == -1 || (operadores.indexOf(valor) != -1 && operadores.indexOf(resultado.substring(resultado.length -1) == -1)) )
+      if( valor == "=" )
       {
-        this.setState({valor:this.state.valor + valor})    
-      }      
+        let resultado = eval(this.state.valor);
+
+        this.setState({valor:resultado});
+      }
+      else
+      {
+        const operadores = ['/', '*', '-', '.', '=', '.'];
+      
+        let resultado = this.state.valor;
+        
+        let leng = 1;
+
+        if( resultado.length >= 1 )
+        {
+          leng = resultado.length -1;
+        }
+
+        this.setState({valor:this.state.valor + valor});
+
+        let ultimo = resultado.substring(leng);        
+
+        if( (operadores.indexOf(valor) != 1 && valor != ultimo) || (operadores.indexOf(valor) != 1 && operadores.indexOf(ultimo) == -1 ) || operadores.indexOf(valor) == -1 )
+        {
+          this.setState({valor:this.state.valor + valor});
+        }
+      }
     }
   }
 
