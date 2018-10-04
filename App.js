@@ -15,7 +15,7 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      valor: '0',
+      valor: '0',      
     }
 
     this.calcular = this.calcular.bind(this);
@@ -25,40 +25,53 @@ export default class App extends React.Component {
   {
     if( valor == 'C')
     {
-      this.setState({valor:0});
+      this.setState({valor:'0'});
     }
     else
     {
-
       if( valor == "=" )
       {
-        let resultado = eval(this.state.valor);
+        let resultadoCalc = eval(this.state.valor);
 
-        this.setState({valor:resultado});
+        this.setState({valor:resultadoCalc.toString()});
       }
       else
-      {
+      {               
         const operadores = ['/', '*', '-', '.', '=', '.'];
       
         let resultado = this.state.valor;
         
-        let leng = 1;
+        let leng = resultado.length;
 
-        if( resultado.length >= 1 )
+        if( resultado.length > 0 )
         {
           leng = resultado.length -1;
         }
 
-        this.setState({valor:this.state.valor + valor});
+        let ultimo = resultado.substring(leng);
 
-        let ultimo = resultado.substring(leng);        
-
-        if( (operadores.indexOf(valor) != 1 && valor != ultimo) || (operadores.indexOf(valor) != 1 && operadores.indexOf(ultimo) == -1 ) || operadores.indexOf(valor) == -1 )
+        let sinal = 0;
+        
+        if( operadores.indexOf(valor) != -1 )
         {
+          sinal = 1;
+        }
+
+        
+        if( (sinal && operadores.indexOf(ultimo) == -1) || operadores.indexOf(valor) == -1 )
+        {
+          alert(operadores.indexOf(ultimo))
+
+
+          let mensagem = `valorDig = ${valor} --- ultimo = ${ultimo}`;
+          
+          //alert(mensagem);
+
           this.setState({valor:this.state.valor + valor});
         }
       }
     }
+        
   }
 
   render() {
