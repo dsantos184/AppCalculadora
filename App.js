@@ -27,6 +27,10 @@ export default class App extends React.Component {
     {
       this.setState({valor:'0'});
     }
+    else if( this.state.valor == '0' )
+    {
+      this.setState({valor:valor});
+    }
     else
     {
       if( valor == "=" )
@@ -37,7 +41,7 @@ export default class App extends React.Component {
       }
       else
       {               
-        const operadores = ['/', '*', '-', '.', '=', '.'];
+        const operadores = ['/', '*', '-', '.', '=', '.', '+'];
       
         let resultado = this.state.valor;
         
@@ -50,23 +54,15 @@ export default class App extends React.Component {
 
         let ultimo = resultado.substring(leng);
 
-        let sinal = 0;
-        
-        if( operadores.indexOf(valor) != -1 )
+        if( operadores.indexOf(valor) == -1 || (operadores.indexOf(valor) != -1 &&  operadores.indexOf(ultimo) == -1) )
         {
-          sinal = 1;
-        }
+          verificaSinal = 'É sinal';
 
-        
-        if( (sinal && operadores.indexOf(ultimo) == -1) || operadores.indexOf(valor) == -1 )
-        {
-          alert(operadores.indexOf(ultimo))
-
-
-          let mensagem = `valorDig = ${valor} --- ultimo = ${ultimo}`;
-          
-          //alert(mensagem);
-
+          if( operadores.indexOf(valor) == -1 )
+          {
+            verificaSinal = 'Não sinal';
+          }       
+                    
           this.setState({valor:this.state.valor + valor});
         }
       }
