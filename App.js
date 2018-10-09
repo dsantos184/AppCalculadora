@@ -55,14 +55,7 @@ export default class App extends React.Component {
         let ultimo = resultado.substring(leng);
 
         if( operadores.indexOf(valor) == -1 || (operadores.indexOf(valor) != -1 &&  operadores.indexOf(ultimo) == -1) )
-        {
-          verificaSinal = 'É sinal';
-
-          if( operadores.indexOf(valor) == -1 )
-          {
-            verificaSinal = 'Não sinal';
-          }       
-                    
+        {          
           this.setState({valor:this.state.valor + valor});
         }
       }
